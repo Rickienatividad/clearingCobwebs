@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  cobwebsDB:
+    image: postgres
+    container_name: cobwebsDB
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=cobwebsDB
+    ports:
+      - '5432:5432'
+
+  backend:
+    container_name: clearingCobwebs-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8081:8080'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/cobwebsDB
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - cobwebsDB
