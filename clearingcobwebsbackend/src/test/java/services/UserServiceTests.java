@@ -1,6 +1,7 @@
 package services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -12,10 +13,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockingDetails;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import dto.AppUserDTO;
 import entities.UserEntity;
 import models.AppUser;
 import repositories.UserRepository;
@@ -31,7 +35,7 @@ public class UserServiceTests {
   private UserService userService;
 
   @Test
-  public void testThatUserIsSaved() {
+  public void testThatUserIsSavedandReturnsUserEntity() {
     AppUser appUser = AppUser.builder()
         .firstName("test")
         .lastName("test")
@@ -41,6 +45,8 @@ public class UserServiceTests {
 
     UserEntity newUser = userService.createUser(appUser);
     Assertions.assertThat(newUser.getEmail()).isEqualTo("test@test.com");
-
+    MockingDetails mockingDetails = Mockito.mockingDetails(newUser);
+    Class<?> whichClass = mockingDetails.getMock().getClass();
+    assertEquals(whichClass.getName(), "entities.UserEntity");
   }
 }
