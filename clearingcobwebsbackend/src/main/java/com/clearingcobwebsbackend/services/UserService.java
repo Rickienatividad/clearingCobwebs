@@ -1,20 +1,23 @@
-package services;
+package com.clearingcobwebsbackend.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import entities.UserEntity;
+import com.clearingcobwebsbackend.entities.UserEntity;
+import com.clearingcobwebsbackend.mapper.ProjectMapper;
+import com.clearingcobwebsbackend.models.AppUser;
+import com.clearingcobwebsbackend.repositories.UserRepository;
+
 import lombok.RequiredArgsConstructor;
-import mapper.ProjectMapper;
-import models.AppUser;
-import repositories.UserRepository;
 
 @Service
+@Component
 @RequiredArgsConstructor
 public class UserService {
   private final UserRepository userRepository;
-  private final ProjectMapper projectMapper;
+  // private final ProjectMapper projectMapper;
 
   public UserEntity createUser(AppUser appUser) {
     UserEntity newUser = UserEntity.builder()

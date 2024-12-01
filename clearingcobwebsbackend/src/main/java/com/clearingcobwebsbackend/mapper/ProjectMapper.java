@@ -1,11 +1,11 @@
-package mapper;
+package com.clearingcobwebsbackend.mapper;
 
 import java.util.List;
 
 import org.mapstruct.Mapper;
 
-import dto.AppUserDTO;
-import entities.UserEntity;
+import com.clearingcobwebsbackend.dto.AppUserDTO;
+import com.clearingcobwebsbackend.entities.UserEntity;
 
 @Mapper(componentModel = "spring")
 public interface ProjectMapper {
