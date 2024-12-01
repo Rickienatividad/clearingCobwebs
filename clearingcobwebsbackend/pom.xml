@@ -71,6 +71,11 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--Spring Boot Validations-->
+		<dependency> 
+    <groupId>org.springframework.boot</groupId> 
+    <artifactId>spring-boot-starter-validation</artifactId> 
+		</dependency>
 		<!--JWT-->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -134,6 +139,11 @@
     <groupId>org.mapstruct</groupId>
     <artifactId>mapstruct</artifactId>
     <version>1.6.0.Beta1</version> 
+		</dependency>
+		<!--SnakeYAML-->
+		<dependency>
+    <groupId>org.yaml</groupId>
+    <artifactId>snakeyaml</artifactId>
 		</dependency>
 	</dependencies>
 

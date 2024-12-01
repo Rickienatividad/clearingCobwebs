@@ -8,9 +8,13 @@ import repositories.UserRepository;
 import entities.UserEntity;
 import services.UserService;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 
 @RequiredArgsConstructor // eliminates need to write constructor injection code for private final
@@ -18,13 +22,15 @@ import org.springframework.http.ResponseEntity;
 @Controller
 public class UserController {
 
-  private final UserRepository userRepository;
   private final UserService userService;
 
   @PostMapping("/users")
   public void createUser(@RequestBody AppUser appUser) {
     userService.createUser(appUser);
-
   }
 
+  @GetMapping("/users")
+  public List<UserEntity> getUserIndex() {
+    return userService.findUserEntities();
+  }
 }
