@@ -16,11 +16,13 @@ import org.springframework.http.MediaType;
 import com.clearingcobwebsbackend.entities.UserEntity;
 import com.clearingcobwebsbackend.models.AppUser;
 import com.clearingcobwebsbackend.repositories.UserRepository;
+import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
 import com.clearingcobwebsbackend.services.UserService;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor // eliminates need to write constructor injection code for private final
                          // instances(ex lines 20,21)
@@ -31,12 +33,18 @@ public class UserController {
   private final UserService userService;
 
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public void createUser(@RequestBody AppUser appUser) {
-    userService.createUser(appUser);
+  public ResponseEntity<?> createUser(@RequestBody UserRequestObj userRequestObj) {
+    return userService.createUser(userRequestObj);
   }
 
   @GetMapping("")
   public List<UserEntity> getUserIndex() {
     return userService.findUserEntities();
   }
+
+  @GetMapping("/email/{email}")
+  public UserEntity findUserByEmail(@PathVariable String email) throws Exception {
+    return userService.findUserByEmail(email);
+  }
+
 }

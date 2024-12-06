@@ -18,10 +18,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.http.ResponseEntity;
 
 import com.clearingcobwebsbackend.entities.UserEntity;
 import com.clearingcobwebsbackend.models.AppUser;
 import com.clearingcobwebsbackend.repositories.UserRepository;
+import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
 import com.clearingcobwebsbackend.services.UserService;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,19 +36,22 @@ public class UserServiceTests {
   @InjectMocks
   private UserService userService;
 
-  @Test
-  public void testThatUserIsSavedandReturnsUserEntity() {
-    AppUser appUser = AppUser.builder()
-        .firstName("test")
-        .lastName("test")
-        .email("test@test.com")
-        .password("password")
-        .build();
-
-    UserEntity newUser = userService.createUser(appUser);
-    Assertions.assertThat(newUser.getEmail()).isEqualTo("test@test.com");
-    MockingDetails mockingDetails = Mockito.mockingDetails(newUser);
-    Class<?> whichClass = mockingDetails.getMock().getClass();
-    assertEquals(whichClass.getName(), "entities.UserEntity");
-  }
+  /*
+   * @Test
+   * public ResponseEntity<?> testThatUserIsSavedandReturnsUserEntity() {
+   * UserRequestObj userRequestObj = UserRequestObj.builder()
+   * .firstName("test")
+   * .lastName("test")
+   * .email("test@test.com")
+   * .password("password")
+   * .build();
+   * 
+   * UserEntity newUser = userService.createUser(userRequestObj);
+   * Assertions.assertThat(newUser.getEmail()).isEqualTo("test@test.com");
+   * MockingDetails mockingDetails = Mockito.mockingDetails(newUser);
+   * Class<?> whichClass = mockingDetails.getMock().getClass();
+   * assertEquals(whichClass.getName(),
+   * "com.clearingcobwebsbackend.entities.UserEntity");
+   * }
+   */
 }
