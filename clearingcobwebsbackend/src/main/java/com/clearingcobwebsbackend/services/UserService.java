@@ -11,10 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.clearingcobwebsbackend.configurations.NotFoundException;
 import com.clearingcobwebsbackend.entities.UserEntity;
-import com.clearingcobwebsbackend.mapper.ProjectMapper;
-import com.clearingcobwebsbackend.models.AppUser;
 import com.clearingcobwebsbackend.repositories.UserRepository;
 import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
+import com.clearingcobwebsbackend.security.TextEncoder;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,7 +32,7 @@ public class UserService {
           .firstName(userRequestObj.getFirstName())
           .lastName(userRequestObj.getLastName())
           .email(userRequestObj.getEmail())
-          .password(userRequestObj.getPassword())
+          .password(TextEncoder.encode(userRequestObj.getPassword()))
           .build();
 
       userRepository.saveAndFlush(newUser);
