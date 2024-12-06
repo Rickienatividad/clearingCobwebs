@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class AppUser {
-  private Long id;
 
   @NotBlank(message = "First Name Cannot Be Blank")
   @Size(min = 2, max = 20)

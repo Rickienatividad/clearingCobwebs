@@ -27,7 +27,7 @@ public class UserService {
         .password(appUser.getPassword())
         .build();
 
-    userRepository.save(newUser);
+    userRepository.saveAndFlush(newUser);
     return newUser;
   }
 

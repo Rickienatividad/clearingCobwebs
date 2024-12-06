@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 
   @Id
+  @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
