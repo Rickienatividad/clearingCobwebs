@@ -19,6 +19,8 @@ import com.clearingcobwebsbackend.repositories.UserRepository;
 import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
 import com.clearingcobwebsbackend.services.UserService;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -33,7 +35,7 @@ public class UserController {
   private final UserService userService;
 
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> createUser(@RequestBody UserRequestObj userRequestObj) {
+  public ResponseEntity<?> createUser(@Valid @RequestBody UserRequestObj userRequestObj) {
     return userService.createUser(userRequestObj);
   }
 
