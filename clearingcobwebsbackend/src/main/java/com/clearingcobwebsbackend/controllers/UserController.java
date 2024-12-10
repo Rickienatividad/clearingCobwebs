@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.MediaType;
 
+import com.clearingcobwebsbackend.configurations.NotFoundException;
+import com.clearingcobwebsbackend.configurations.UnauthorizedException;
 import com.clearingcobwebsbackend.entities.UserEntity;
+import com.clearingcobwebsbackend.enums.SecurityQuestion;
 import com.clearingcobwebsbackend.models.AppUser;
 import com.clearingcobwebsbackend.repositories.UserRepository;
 import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
@@ -48,5 +51,20 @@ public class UserController {
   public UserEntity findUserByEmail(@PathVariable String email) throws Exception {
     return userService.findUserByEmail(email);
   }
+
+  /*
+   * @GetMapping("/enums/{question}")
+   * public SecurityQuestion findByQuestion(@PathVariable String question) throws
+   * Exception {
+   * for (SecurityQuestion sq : SecurityQuestion.values()) {
+   * String fullQuestion = question + "?";
+   * if (sq.getQuestion().equals(fullQuestion)) {
+   * System.out.println(sq.getQuestion().getClass());
+   * return sq;
+   * }
+   * }
+   * throw new UnauthorizedException("bad");
+   * }
+   */
 
 }

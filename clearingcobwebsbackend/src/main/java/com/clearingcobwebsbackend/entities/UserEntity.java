@@ -42,4 +42,10 @@ public class UserEntity {
   @Size(min = 8, message = "minimum of 8 characters")
   private String password;
 
+  @Column(name = "security_question", nullable = false)
+  private String securityQuestion;
+
+  @Column(name = "security_answer", nullable = false)
+  private String securityAnswer;
+
 }

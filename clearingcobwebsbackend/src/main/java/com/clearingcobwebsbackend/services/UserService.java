@@ -33,6 +33,8 @@ public class UserService {
           .lastName(userRequestObj.getLastName())
           .email(userRequestObj.getEmail())
           .password(TextEncoder.encode(userRequestObj.getPassword()))
+          .securityQuestion(userRequestObj.getSecurityQuestion())
+          .securityAnswer(TextEncoder.encode(userRequestObj.getSecurityAnswer()))
           .build();
 
       userRepository.saveAndFlush(newUser);

@@ -30,4 +30,9 @@ public class UserRequestObj {
   @Size(min = 8, max = 20)
   private String password;
 
+  @NotBlank(message = "A Security Question Must Be Selected")
+  private String securityQuestion;
+
+  @NotBlank(message = "Provide An Answer For The Chosen Security Question")
+  private String securityAnswer;
 }
