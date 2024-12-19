@@ -65,6 +65,8 @@ public class UserService {
     }
   }
 
+  // Helper Methods
+
   private String getSecurityQuestionNewUser(String securityQuestion) {
     for (SecurityQuestion sq : SecurityQuestion.values()) {
       String fullQuestion = securityQuestion;

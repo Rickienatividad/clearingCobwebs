@@ -20,6 +20,7 @@ import com.clearingcobwebsbackend.enums.SecurityQuestion;
 import com.clearingcobwebsbackend.models.AppUser;
 import com.clearingcobwebsbackend.repositories.UserRepository;
 import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
+import com.clearingcobwebsbackend.services.EmailService;
 import com.clearingcobwebsbackend.services.UserService;
 
 import jakarta.validation.Valid;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 
   private final UserService userService;
+  private final EmailService emailService;
 
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> createUser(@Valid @RequestBody UserRequestObj userRequestObj) throws Exception {
@@ -52,19 +54,9 @@ public class UserController {
     return userService.findUserByEmail(email);
   }
 
-  /*
-   * @GetMapping("/enums/{question}")
-   * public SecurityQuestion findByQuestion(@PathVariable String question) throws
-   * Exception {
-   * for (SecurityQuestion sq : SecurityQuestion.values()) {
-   * String fullQuestion = question + "?";
-   * if (sq.getQuestion().equals(fullQuestion)) {
-   * System.out.println(sq.getQuestion().getClass());
-   * return sq;
-   * }
-   * }
-   * throw new UnauthorizedException("bad");
-   * }
-   */
-
+  @GetMapping("/reset")
+  public String resetPassword() {
+    emailService.sendEmail("rickienatividad85@gmail.com", "testing spring boot app", "spring boot app");
+    return "sent successfully";
+  }
 }
