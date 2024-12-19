@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.clearingcobwebsbackend.configurations.ForbiddenException;
 import com.clearingcobwebsbackend.configurations.NotFoundException;
 import com.clearingcobwebsbackend.entities.UserEntity;
+import com.clearingcobwebsbackend.enums.SecurityQuestion;
 import com.clearingcobwebsbackend.repositories.UserRepository;
 import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
 import com.clearingcobwebsbackend.security.TextEncoder;
@@ -24,8 +26,13 @@ public class UserService {
   private final UserRepository userRepository;
   // private final ProjectMapper projectMapper;
 
-  public ResponseEntity<?> createUser(UserRequestObj userRequestObj) {
+  public ResponseEntity<?> createUser(UserRequestObj userRequestObj) throws Exception {
     boolean userAlreadyExists = userRepository.findByEmail(userRequestObj.getEmail()).isPresent();
+    String newUserSecQuestion = this.getSecurityQuestionNewUser(userRequestObj.getSecurityQuestion());
+
+    if (newUserSecQuestion.equals("Not approved")) {
+      throw new ForbiddenException("This security question is not in the approved list");
+    }
 
     if (!userAlreadyExists) {
       UserEntity newUser = UserEntity.builder()
@@ -33,7 +40,7 @@ public class UserService {
           .lastName(userRequestObj.getLastName())
           .email(userRequestObj.getEmail())
           .password(TextEncoder.encode(userRequestObj.getPassword()))
-          .securityQuestion(userRequestObj.getSecurityQuestion())
+          .securityQuestion(newUserSecQuestion)
           .securityAnswer(TextEncoder.encode(userRequestObj.getSecurityAnswer()))
           .build();
 
@@ -56,5 +63,15 @@ public class UserService {
     } else {
       throw new NotFoundException("User not found");
     }
+  }
+
+  private String getSecurityQuestionNewUser(String securityQuestion) {
+    for (SecurityQuestion sq : SecurityQuestion.values()) {
+      String fullQuestion = securityQuestion;
+      if (sq.getQuestion().equals(fullQuestion)) {
+        return sq.getQuestion().toString();
+      }
+    }
+    return "Not approved";
   }
 }

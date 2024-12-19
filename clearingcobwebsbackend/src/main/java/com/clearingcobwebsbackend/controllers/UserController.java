@@ -38,7 +38,7 @@ public class UserController {
   private final UserService userService;
 
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> createUser(@Valid @RequestBody UserRequestObj userRequestObj) {
+  public ResponseEntity<?> createUser(@Valid @RequestBody UserRequestObj userRequestObj) throws Exception {
     return userService.createUser(userRequestObj);
   }
 
