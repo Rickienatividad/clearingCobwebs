@@ -1,6 +1,6 @@
 package com.clearingcobwebsbackend.entities;
 
-import java.util.Date;
+import java.time.Instant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,8 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -31,9 +29,11 @@ public class PasswordResetToken {
   @Column(name = "token")
   private String token;
 
-  @Column(name = "token_expiration_date")
-  @Temporal(TemporalType.TIME)
-  private Date expirationDate;
+  @Column(name = "token_expiration")
+  private Instant expirationDate;
+
+  @Column(name = "is_valid")
+  private Boolean isValid;
 
   @ManyToOne
   @JoinColumn(name = "user_id")

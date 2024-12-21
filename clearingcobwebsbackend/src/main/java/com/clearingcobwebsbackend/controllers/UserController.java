@@ -54,9 +54,8 @@ public class UserController {
     return userService.findUserByEmail(email);
   }
 
-  @GetMapping("/reset")
-  public String resetPassword() {
-    emailService.sendEmail("rickienatividad85@gmail.com", "testing spring boot app", "spring boot app");
-    return "sent successfully";
+  @GetMapping("/reset/{email}")
+  public ResponseEntity<?> resetPassword(@PathVariable String email) throws Exception {
+    return emailService.resetEmail(email);
   }
 }
