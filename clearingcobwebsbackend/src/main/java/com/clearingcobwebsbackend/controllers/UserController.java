@@ -19,6 +19,7 @@ import com.clearingcobwebsbackend.entities.UserEntity;
 import com.clearingcobwebsbackend.enums.SecurityQuestion;
 import com.clearingcobwebsbackend.models.AppUser;
 import com.clearingcobwebsbackend.repositories.UserRepository;
+import com.clearingcobwebsbackend.requestobjects.PasswordResetRequestObj;
 import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
 import com.clearingcobwebsbackend.services.EmailService;
 import com.clearingcobwebsbackend.services.UserService;
@@ -54,8 +55,9 @@ public class UserController {
     return userService.findUserByEmail(email);
   }
 
-  @GetMapping("/reset/{email}")
-  public ResponseEntity<?> resetPassword(@PathVariable String email) throws Exception {
-    return emailService.resetEmail(email);
+  @GetMapping("/reset/password")
+  public ResponseEntity<?> resetPassword(@RequestBody PasswordResetRequestObj passwordResetRequestObj)
+      throws Exception {
+    return emailService.resetEmail(passwordResetRequestObj);
   }
 }

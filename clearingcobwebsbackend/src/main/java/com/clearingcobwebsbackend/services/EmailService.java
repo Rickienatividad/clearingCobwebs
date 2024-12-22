@@ -10,12 +10,16 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.clearingcobwebsbackend.configurations.ForbiddenException;
 import com.clearingcobwebsbackend.configurations.NotFoundException;
 import com.clearingcobwebsbackend.entities.PasswordResetToken;
 import com.clearingcobwebsbackend.entities.UserEntity;
 import com.clearingcobwebsbackend.repositories.ResetTokenRepository;
 import com.clearingcobwebsbackend.repositories.UserRepository;
+import com.clearingcobwebsbackend.requestobjects.PasswordResetRequestObj;
+import com.clearingcobwebsbackend.security.TextEncoder;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,11 +36,16 @@ public class EmailService {
   @Value("${spring.mail.username}")
   private String emailSender;
 
-  public ResponseEntity<?> resetEmail(String userEmail) throws Exception {
-    Optional<UserEntity> maybeUser = userRepository.findByEmail(userEmail);
+  public ResponseEntity<?> resetEmail(PasswordResetRequestObj passwordResetRequestObj) throws Exception {
+    Optional<UserEntity> maybeUser = userRepository.findByEmail(passwordResetRequestObj.getEmail());
     if (maybeUser.isPresent()) {
       UserEntity user = maybeUser.get();
-      this.sendEmail(user.getEmail(), this.generateResetToken(user.getId()), "Spring Boot TEST RESET");
+      if (TextEncoder.match(passwordResetRequestObj.getSecurityAnswer(), user.getSecurityAnswer())) {
+        this.sendEmail(user.getEmail(), this.generateResetToken(user.getId()),
+            "Spring Boot TEST RESET");
+      } else {
+        throw new ForbiddenException("Answer to the security question was incorrect.");
+      }
     } else {
       throw new NotFoundException("User not found");
     }
