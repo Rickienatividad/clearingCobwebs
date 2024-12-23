@@ -1,0 +1,53 @@
+body {
+  background-color: rgb(3, 179, 203);
+}
+
+.form-container {
+  background-color:lightsteelblue;
+  padding: 1.3rem 5.5rem 1.3rem 5.5rem;
+  border-radius: 5px ;
+}
+
+input {
+  margin-bottom: 1.5rem;
+  border-width: 5px;
+}
+input, input::placeholder {
+  font-size: 12px;
+  width: 25rem;
+}
+input:hover {
+  border-color: mediumslateblue;
+}
+
+select {
+  border: 5px solid;
+  border-top-color: black;
+  border-left-color: black;
+  border-bottom-color: #5f656a;
+  border-right-color: #5f656a;
+  width: 25rem;
+  height: 3.2rem;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+}
+select:hover {
+  border-color: mediumslateblue;
+}
+
+.pw-help-text {
+  font-size: 10px;
+  margin: -1.3rem 0 0.3rem 0;
+  text-align: left;
+  margin-left: 15%;
+  color: red;
+}
+
+.continue-btn {
+  width: 25rem;
+  height: 3rem;
+  border-radius: 5px;
+  background-color:mediumslateblue;
+  color: antiquewhite;
+}
+
