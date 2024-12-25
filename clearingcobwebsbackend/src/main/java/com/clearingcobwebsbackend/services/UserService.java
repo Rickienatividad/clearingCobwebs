@@ -1,6 +1,7 @@
 package com.clearingcobwebsbackend.services;
 
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +66,14 @@ public class UserService {
     }
   }
 
+  public List<String> getSecurityQuestions() {
+    List<String> securityQuestionList = new ArrayList<String>();
+    for (SecurityQuestion sq : SecurityQuestion.values()) {
+      securityQuestionList.add(sq.getQuestion());
+    }
+    System.out.println(securityQuestionList);
+    return securityQuestionList;
+  }
   // Helper Methods
 
   private String getSecurityQuestionNewUser(String securityQuestion) {

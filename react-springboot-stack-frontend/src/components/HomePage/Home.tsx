@@ -1,19 +1,39 @@
+import axios from "axios";
 import "./Home.css"
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 export function Home() {
+  //regex for sign up form validations
   const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordRegex: RegExp = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
   const securityAnswerRegex: RegExp = /^[0-9a-zA-Z ]{2,}$/;
+
+  //for observing sign up form field input values (more validation stuff)
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const passwordConfirmationRef = useRef<HTMLInputElement | null>(null);
   const securityAnswerRef = useRef<HTMLInputElement | null>(null);
 
+  //stateful variables (even more validation stuff)
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordConfirmationValid, setIsPasswordConfirmationValid] = useState(true);
   const [isSecurityAnswerValid, setIsSecurityAnswerValid] = useState(true);
+
+  const [securityQuestions, setSecurityQuestions] = useState([]);
+
+  const retrieveSecurityQuestions = () => {
+    axios
+    .get("http://localhost:8080/users/security-questions")
+    .then((response) => {
+      setSecurityQuestions(response.data);
+    })
+    .catch((error) => {
+      console.log(error.message)
+    });
+  };
+
+  useEffect(retrieveSecurityQuestions, []);
 
   const validationChecker = () => {
    if(emailRegex.test(emailRef.current?.value ?? "")) {
@@ -34,7 +54,6 @@ export function Home() {
     } else {
         setIsSecurityAnswerValid(true);
       }
-    console.log(securityAnswerRef.current?.value.length)
   }
   
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -63,7 +82,9 @@ export function Home() {
         </div>
         <div className="btn-group">
           <select name="security-question" id="security-question">
-            <option value="">Choice 1</option>
+            {securityQuestions.map((question, index) =>(
+              <option key={index}>{question}</option>
+            ))}
           </select>
         </div>
         <input ref={securityAnswerRef} name="security-answer" type="text" className="form-control-lg" placeholder="Provide Answer to Selected Security Question"/>

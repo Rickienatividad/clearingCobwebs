@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,12 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.MediaType;
 
-import com.clearingcobwebsbackend.configurations.NotFoundException;
-import com.clearingcobwebsbackend.configurations.UnauthorizedException;
 import com.clearingcobwebsbackend.entities.UserEntity;
-import com.clearingcobwebsbackend.enums.SecurityQuestion;
-import com.clearingcobwebsbackend.models.AppUser;
-import com.clearingcobwebsbackend.repositories.UserRepository;
 import com.clearingcobwebsbackend.requestobjects.PasswordResetRequestObj;
 import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
 import com.clearingcobwebsbackend.services.EmailService;
@@ -29,7 +25,6 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor // eliminates need to write constructor injection code for private final
                          // instances(ex lines 20,21)
@@ -60,4 +55,11 @@ public class UserController {
       throws Exception {
     return emailService.resetEmail(passwordResetRequestObj);
   }
+
+  @CrossOrigin(origins = "http://localhost:5173/")
+  @GetMapping("/security-questions")
+  public List<String> getSecurityQuestions() {
+    return userService.getSecurityQuestions();
+  }
+
 }
