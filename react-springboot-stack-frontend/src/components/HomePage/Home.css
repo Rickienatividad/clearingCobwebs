@@ -1,11 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: rgb(3, 179, 203);
 }
 
-.form-container {
+.form-group {
   background-color:lightsteelblue;
-  padding: 1.3rem 5.5rem 1.3rem 5.5rem;
   border-radius: 5px ;
+  padding: 1.5rem 11.5rem;
+  width: 60rem;
 }
 
 input {
@@ -35,12 +40,22 @@ select:hover {
   border-color: mediumslateblue;
 }
 
-.pw-help-text {
+.help-text {
   font-size: 10px;
-  margin: -1.3rem 0 0.3rem 0;
+  width: 100%;
   text-align: left;
-  margin-left: 15%;
+  margin-top: -1.2rem;
+  margin-left: 6rem;
   color: red;
+}
+
+.help-text-hidden {
+  font-size: 10px;
+  width: 100%;
+  text-align: left;
+  margin-top: -1.2rem;
+  margin-left: 1rem;
+  visibility: hidden;
 }
 
 .continue-btn {
@@ -49,5 +64,20 @@ select:hover {
   border-radius: 5px;
   background-color:mediumslateblue;
   color: antiquewhite;
+}
+.continue-btn-disabled {
+  width: 25rem;
+  height: 3rem;
+  border-radius: 5px;
+  background-color:rgba(116, 114, 123, 0.4);
+  color: antiquewhite;
+}
+.continue-btn-disabled:hover {
+  width: 25rem;
+  height: 3rem;
+  border-radius: 5px;
+  background-color:rgba(116, 114, 123, 0.4);
+  color: antiquewhite;
+  cursor: not-allowed;
 }
 
