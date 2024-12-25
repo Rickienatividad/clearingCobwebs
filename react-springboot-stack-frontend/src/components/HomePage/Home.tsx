@@ -15,10 +15,11 @@ export function Home() {
   const securityAnswerRef = useRef<HTMLInputElement | null>(null);
 
   //stateful variables (even more validation stuff)
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isPasswordConfirmationValid, setIsPasswordConfirmationValid] = useState(true);
-  const [isSecurityAnswerValid, setIsSecurityAnswerValid] = useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isPasswordConfirmationValid, setIsPasswordConfirmationValid] = useState(false);
+  const [isSecurityAnswerValid, setIsSecurityAnswerValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const [securityQuestions, setSecurityQuestions] = useState([]);
 
@@ -54,12 +55,20 @@ export function Home() {
     } else {
         setIsSecurityAnswerValid(true);
       }
-  }
+  };
+
+  useEffect(() => {
+    if(!isEmailValid || !isPasswordValid || !isPasswordConfirmationValid || !isSecurityAnswerValid) {
+      setIsFormValid(false);
+      //throw new Error('Form is invalid');
+    } else {
+      setIsFormValid(true);
+    }
+  }, [isEmailValid, isPasswordValid, isPasswordConfirmationValid, isSecurityAnswerValid , isFormValid])
   
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //const data: FormData = new FormData(e.currentTarget);
-    validationChecker();   
   }
 
   return (
@@ -68,15 +77,15 @@ export function Home() {
     <div id="main-container" className="form-group">
       <form onSubmit={handleSubmit}>
         
-        <input ref={emailRef} name="email" type="text" className="form-control-lg" placeholder="Email Address" />
+        <input ref={emailRef} name="email" type="text" className="form-control-lg" placeholder="Email Address" onChange={validationChecker}/>
         <div id="email-help-block" className={!isEmailValid ? "help-text" : "help-text-hidden"}>
           Please enter a valid email address.
         </div>
-        <input ref={passwordRef} name="password" type="password" className="form-control-lg" placeholder="Password"/>
+        <input ref={passwordRef} name="password" type="password" className="form-control-lg" placeholder="Password" onChange={validationChecker}/>
         <div id="password-help-block" className={!isPasswordValid ? "help-text" : "help-text-hidden"}>
           Must be 8-12 characters long and contain letters, numbers and a special character.
         </div>
-        <input ref={passwordConfirmationRef} name="password-confirmation" type="password" className="form-control-lg" placeholder="Confirm Password"/>
+        <input ref={passwordConfirmationRef} name="password-confirmation" type="password" className="form-control-lg" placeholder="Confirm Password" onChange={validationChecker}/>
         <div id="password-confirmation-help-block" className={!isPasswordConfirmationValid ? "help-text" : "help-text-hidden"}>
             Passwords do not match.
         </div>
@@ -87,9 +96,9 @@ export function Home() {
             ))}
           </select>
         </div>
-        <input ref={securityAnswerRef} name="security-answer" type="text" className="form-control-lg" placeholder="Provide Answer to Selected Security Question"/>
+        <input ref={securityAnswerRef} name="security-answer" type="text" className="form-control-lg" placeholder="Provide Answer to Selected Security Question" onChange={validationChecker}/>
         <div className={!isSecurityAnswerValid ? "help-text" : "help-text-hidden"}>Only letters and numbers allowed</div>
-      <button className="continue-btn" type="submit">Continue</button>
+      <button className={isFormValid ? "continue-btn" : "continue-btn-disabled"} type="submit">Continue</button>
       </form>
     </div>
     </>

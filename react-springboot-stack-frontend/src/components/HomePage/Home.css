@@ -29,8 +29,8 @@ select {
   border: 5px solid;
   border-top-color: black;
   border-left-color: black;
-  border-bottom-color: #5f656a;
-  border-right-color: #5f656a;
+  border-bottom-color: rgb(118,118,118);
+  border-right-color: rgb(118,118,118);
   width: 25rem;
   height: 3.2rem;
   border-radius: 5px;
