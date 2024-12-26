@@ -71,7 +71,6 @@ public class UserService {
     for (SecurityQuestion sq : SecurityQuestion.values()) {
       securityQuestionList.add(sq.getQuestion());
     }
-    System.out.println(securityQuestionList);
     return securityQuestionList;
   }
   // Helper Methods

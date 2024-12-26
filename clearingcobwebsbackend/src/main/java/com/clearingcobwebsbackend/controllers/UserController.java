@@ -35,6 +35,7 @@ public class UserController {
   private final UserService userService;
   private final EmailService emailService;
 
+  @CrossOrigin(origins = "http://localhost:5173/")
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> createUser(@Valid @RequestBody UserRequestObj userRequestObj) throws Exception {
     return userService.createUser(userRequestObj);
