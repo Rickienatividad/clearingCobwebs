@@ -1,6 +1,7 @@
 import axios from "axios";
 import "./Home.css"
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router";
 
 export function Home() {
   //regex for sign up form validations
@@ -100,7 +101,8 @@ export function Home() {
       })
       .catch((error) => {
         console.log(error.message);
-      })
+      });
+      
   }
 
   return (
@@ -136,6 +138,10 @@ export function Home() {
         <div className={!isSecurityAnswerValid ? "help-text" : "help-text-hidden"}>Only letters and numbers allowed</div>
       <button className={isFormValid ? "continue-btn" : "continue-btn-disabled"} type="submit" disabled={!isFormValid}>Continue</button>
       </form>
+      <div style={{marginRight: '-5.5rem',marginTop: '1.5rem', textAlign: 'right'}}>
+        <p style={{display: 'inline'}}>Already a user? </p>
+        <NavLink to="/login">Login</NavLink>
+      </div>
     </div>
     </>
   )

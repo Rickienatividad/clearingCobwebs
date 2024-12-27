@@ -9,8 +9,8 @@ body {
 .form-group {
   background-color:lightsteelblue;
   border-radius: 5px ;
-  padding: 1.5rem 11.5rem;
-  width: 60rem;
+  padding: 1.5rem 7rem;
+  width: 40em;
 }
 
 input {
@@ -42,10 +42,9 @@ select:hover {
 
 .help-text {
   font-size: 10px;
-  width: 100%;
+  width: 120%;
   text-align: left;
   margin-top: -1.2rem;
-  margin-left: 6rem;
   color: red;
 }
 
@@ -80,4 +79,3 @@ select:hover {
   color: antiquewhite;
   cursor: not-allowed;
 }
-
