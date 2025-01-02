@@ -1,5 +1,7 @@
 package com.clearingcobwebsbackend.configurations;
 
+import java.util.Arrays;
+
 import org.apache.tomcat.util.http.parser.HttpParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 
 import com.clearingcobwebsbackend.security.TextEncoder;
 import com.clearingcobwebsbackend.services.UserDetailsServiceImpl;
@@ -30,10 +33,18 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     return http
         .csrf(customizer -> customizer.disable())
+        .cors(cors -> cors.configurationSource(request -> {
+          CorsConfiguration configuration = new CorsConfiguration();
+          configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+          configuration.setAllowedMethods(Arrays.asList("*"));
+          configuration.setAllowedHeaders(Arrays.asList("*"));
+          return configuration;
+        }))
         .authorizeHttpRequests((request) -> {
           request
               .requestMatchers(HttpMethod.POST, "/users").permitAll()
-              .requestMatchers("/users/security-questions").permitAll()
+              .requestMatchers(HttpMethod.POST, "/auth").permitAll()
+              .requestMatchers(HttpMethod.GET, "/users/security-questions").permitAll()
               .requestMatchers(HttpMethod.GET, "/users").authenticated()
               .requestMatchers(HttpMethod.GET, "/email/**").authenticated();
         })

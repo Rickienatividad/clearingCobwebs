@@ -30,12 +30,12 @@ import org.springframework.http.ResponseEntity;
                          // instances(ex lines 20,21)
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 
   private final UserService userService;
   private final EmailService emailService;
 
-  @CrossOrigin(origins = "http://localhost:5173/")
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> createUser(@Valid @RequestBody UserRequestObj userRequestObj) throws Exception {
     return userService.createUser(userRequestObj);
@@ -57,7 +57,6 @@ public class UserController {
     return emailService.resetEmail(passwordResetRequestObj);
   }
 
-  @CrossOrigin(origins = "http://localhost:5173/")
   @GetMapping("/security-questions")
   public List<String> getSecurityQuestions() {
     return userService.getSecurityQuestions();

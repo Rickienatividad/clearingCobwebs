@@ -1,11 +1,26 @@
 import { NavLink } from 'react-router'
 import './Login.css'
 import { FormEvent } from 'react'
+import axios from 'axios';
 
 export function Login() {
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("hello")
+    const params: FormData = new FormData(e.currentTarget);
+    const loginData = Object.fromEntries(params);
+    const loginObj: object = {
+      email: loginData.email,
+      password: loginData.password
+    }
+
+    axios
+      .post("http://localhost:8080/auth", loginObj)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
   }
   return(
     <>
