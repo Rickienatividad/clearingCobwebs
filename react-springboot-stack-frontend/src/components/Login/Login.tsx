@@ -20,10 +20,11 @@ export function Login() {
       .post("http://localhost:8080/auth", loginObj)
       .then((response) => {
         console.log(response);
+        setIsLoginValid(true);
       })
       .catch((error) => {
         //console.log(error.status)
-        if(error.status == "403") {setIsLoginValid(false)}
+        if(error.status == "401") {setIsLoginValid(false)}
       })
   }
   return(

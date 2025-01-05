@@ -1,15 +1,21 @@
 package com.clearingcobwebsbackend.configurations;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 
 import org.apache.tomcat.util.http.parser.HttpParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -46,7 +52,8 @@ public class SecurityConfig {
               .requestMatchers(HttpMethod.POST, "/auth").permitAll()
               .requestMatchers(HttpMethod.GET, "/users/security-questions").permitAll()
               .requestMatchers(HttpMethod.GET, "/users").authenticated()
-              .requestMatchers(HttpMethod.GET, "/email/**").authenticated();
+              .requestMatchers(HttpMethod.GET, "/email/**").authenticated()
+              .anyRequest().permitAll();
         })
         .httpBasic(Customizer.withDefaults())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -59,6 +66,11 @@ public class SecurityConfig {
     customAuthProvider.setPasswordEncoder(Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8());
     customAuthProvider.setUserDetailsService(userDetailsServiceImpl);
     return customAuthProvider;
+  }
+
+  @Bean
+  public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    return config.getAuthenticationManager();
   }
 
 }
