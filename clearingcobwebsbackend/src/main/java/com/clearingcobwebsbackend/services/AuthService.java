@@ -1,5 +1,7 @@
 package com.clearingcobwebsbackend.services;
 
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,16 +25,18 @@ public class AuthService {
   private final JWTService jwtService;
 
   public String loginUser(LoginRequestObj loginRequestObj) throws Exception {
-    UserEntity user = userRepository.findByEmail(loginRequestObj.getEmail()).get();
+    Optional<UserEntity> maybeUser = userRepository.findByEmail(loginRequestObj.getEmail());
 
-    if (user == null) {
+    if (maybeUser.isEmpty()) {
       throw new ForbiddenException("Password incorrect");
-    }
+    } else {
+      UserEntity user = maybeUser.get();
+      Authentication authentication = authManager
+          .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), loginRequestObj.getPassword()));
 
-    Authentication authentication = authManager
-        .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), loginRequestObj.getPassword()));
-    if (authentication.isAuthenticated()) {
-      return jwtService.generateJWT(user.getEmail());
+      if (authentication.isAuthenticated()) {
+        return jwtService.generateJWT(user.getEmail());
+      }
     }
     return ("Forbidden");
   }

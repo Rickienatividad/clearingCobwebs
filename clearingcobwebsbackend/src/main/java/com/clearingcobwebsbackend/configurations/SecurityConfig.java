@@ -21,8 +21,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
+import com.clearingcobwebsbackend.filters.JwtFilter;
+//import com.clearingcobwebsbackend.filters.JwtFilter;
 import com.clearingcobwebsbackend.security.TextEncoder;
 import com.clearingcobwebsbackend.services.UserDetailsServiceImpl;
 
@@ -34,6 +37,9 @@ public class SecurityConfig {
 
   @Autowired
   private UserDetailsServiceImpl userDetailsServiceImpl;
+
+  @Autowired
+  private JwtFilter jwtFilter;
 
   @Bean // HTTPSecurity is a Class which can return SecurityFilterChain type
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -55,8 +61,9 @@ public class SecurityConfig {
               .requestMatchers(HttpMethod.GET, "/email/**").authenticated()
               .anyRequest().permitAll();
         })
-        .httpBasic(Customizer.withDefaults())
+        // .httpBasic(Customizer.withDefaults())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
   }
 
