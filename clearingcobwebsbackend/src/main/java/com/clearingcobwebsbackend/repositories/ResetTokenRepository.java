@@ -9,5 +9,6 @@ import com.clearingcobwebsbackend.entities.PasswordResetToken;
 
 @Repository
 public interface ResetTokenRepository extends JpaRepository<PasswordResetToken, Long> {
+  Optional<PasswordResetToken> findByToken(String token);
 
 }

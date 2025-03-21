@@ -9,13 +9,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.MediaType;
 
 import com.clearingcobwebsbackend.entities.UserEntity;
 import com.clearingcobwebsbackend.requestobjects.PasswordResetRequestObj;
+import com.clearingcobwebsbackend.requestobjects.UpdatePasswordObj;
 import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
 import com.clearingcobwebsbackend.services.EmailService;
 import com.clearingcobwebsbackend.services.UserService;
@@ -52,14 +55,20 @@ public class UserController {
   }
 
   @GetMapping("/reset/password")
-  public ResponseEntity<?> resetPassword(@RequestBody PasswordResetRequestObj passwordResetRequestObj)
+  public ResponseEntity<?> requestPasswordChange(@RequestBody PasswordResetRequestObj passwordResetRequestObj)
       throws Exception {
-    return emailService.resetEmail(passwordResetRequestObj);
+    return emailService.requestPasswordChange(passwordResetRequestObj);
   }
 
   @GetMapping("/security-questions")
   public List<String> getSecurityQuestions() {
     return userService.getSecurityQuestions();
+  }
+
+  @PostMapping("/update-password")
+  public ResponseEntity<?> updatePassword(@RequestBody UpdatePasswordObj updatePasswordObj)
+      throws Exception {
+    return userService.updatePassword(updatePasswordObj);
   }
 
 }

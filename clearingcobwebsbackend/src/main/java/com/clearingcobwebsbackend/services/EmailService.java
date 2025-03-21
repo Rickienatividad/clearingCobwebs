@@ -35,7 +35,7 @@ public class EmailService {
   @Value("${spring.mail.username}")
   private String emailSender;
 
-  public ResponseEntity<?> resetEmail(PasswordResetRequestObj passwordResetRequestObj) throws Exception {
+  public ResponseEntity<?> requestPasswordChange(PasswordResetRequestObj passwordResetRequestObj) throws Exception {
     Optional<UserEntity> maybeUser = userRepository.findByEmail(passwordResetRequestObj.getEmail());
     if (maybeUser.isPresent()) {
       UserEntity user = maybeUser.get();

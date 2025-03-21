@@ -36,7 +36,7 @@ public class JwtFilter extends OncePerRequestFilter {
     final String email;
     final String jwtToken;
 
-    if (request.getServletPath().contains("/auth")
+    if (request.getServletPath().contains("/auth") | request.getServletPath().contains("/users/update-password")
         | (request.getServletPath().contains("/users") & request.getMethod().equals("POST"))) { // Tells JWT Filter
       // not to apply to
       // this route(s)
