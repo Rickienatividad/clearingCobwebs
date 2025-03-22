@@ -18,7 +18,7 @@
 .step-line-active{
   width: 33%;
   height: 2px;
-  background-color: rgb(191,33,230);
+  background-color: rgb(191,33,230) !important;
 }
 
 .step-dot {
@@ -35,7 +35,7 @@
   width: 3.5rem;
   border-radius: 50%;
   display: inline-block;
-  background-color: rgb(191,33,230);
+  background-color: rgb(191,33,230) !important;
   color: black
 }
 

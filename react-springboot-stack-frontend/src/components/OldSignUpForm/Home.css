@@ -61,6 +61,14 @@ select:hover {
   visibility: hidden;
 }
 
+.button-container {
+  margin-top: 3rem;
+}
+
+.form-btn {
+  margin: 0 1.5rem;
+}
+
 .continue-btn {
   width: 25rem;
   height: 3rem;
