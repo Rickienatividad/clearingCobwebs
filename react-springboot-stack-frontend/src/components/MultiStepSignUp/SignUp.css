@@ -22,17 +22,21 @@
 }
 
 .step-dot {
-  height: 3.5rem;
-  width: 3.5rem;
+  height: 4.5rem;
+  width: 4.5rem;
+  font-size: 12px;
   border-radius: 50%;
+  align-content: center;
   display: inline-block;
   background-color: darkgray;
   color: black;
 }
 
 .step-dot-active {
-  height: 3.5rem;
-  width: 3.5rem;
+  height: 4.5rem;
+  width: 4.5rem;
+  align-content: center;
+  font-size: 12px;
   border-radius: 50%;
   display: inline-block;
   background-color: rgb(191,33,230) !important;
