@@ -1,13 +1,15 @@
 import "./SignUp.css";
+import axios from "axios";
 import { StepOne } from "./StepOne";
 import { StepTwo } from "./StepTwo";
 import { StepThree } from "./StepThree";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export function SignUp() {
   const formPgRef= useRef(1);
   const [showForm, setShowForm] = useState(1);
-
+  const [securityQuestions, setSecurityQuestions] = useState([]);
+  
   const shiftFormUp = () => {
     setShowForm(showForm +1);
     formPgRef.current++;
@@ -19,6 +21,19 @@ export function SignUp() {
     formPgRef.current--;
     console.log(formPgRef.current);
   }
+
+  const retrieveSecurityQuestions = () => {
+    axios
+    .get("http://localhost:8080/users/security-questions")
+    .then((response) => {
+      setSecurityQuestions(response.data);
+    })
+    .catch((error) => {
+      console.log(error.message)
+    });
+  };
+
+  useEffect(retrieveSecurityQuestions, []);
   
   return(
     <div className="container">
@@ -34,8 +49,8 @@ export function SignUp() {
         </div>
       </div>
       <div style={{visibility: formPgRef.current == 1 ? "visible" : "hidden"}}><StepOne /></div>
-      <StepTwo />
-      <StepThree />
+      <div style={{visibility: formPgRef.current == 2 ? "visible" : "hidden"}}><StepTwo /></div>
+      <div style={{visibility: formPgRef.current == 3 ? "visible" : "hidden"}}><StepThree secQuestions={securityQuestions}/></div>
       <div className="button-container">
       <button className="form-btn" onClick={shiftFormBack}>Back</button>
       <button className="form-btn" onClick={shiftFormUp}>Next</button>

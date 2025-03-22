@@ -91,3 +91,11 @@ select:hover {
   color: antiquewhite;
   cursor: not-allowed;
 }
+
+.step-two-page {
+  margin-top: -12rem;
+}
+
+.step-three-page {
+  margin-top: -10rem;
+}
