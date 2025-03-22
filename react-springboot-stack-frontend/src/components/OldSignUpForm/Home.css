@@ -13,8 +13,12 @@ body {
   width: 40em;
 }
 
-input {
+.spacer {
   margin-bottom: 1.5rem;
+}
+
+input {
+  margin-bottom: 1.5rem; 
   border-width: 5px;
 }
 input, input::placeholder {

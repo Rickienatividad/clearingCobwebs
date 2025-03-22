@@ -1,7 +1,12 @@
 .container {
-  width: 1000px;
+  /*width: 1000px;*/
   height:90vh;
   border: 1px solid black;
+  background-color: lightsteelblue;
+}
+
+#steps-section {
+  margin-bottom: 5rem;
 }
 
 .step-line{
