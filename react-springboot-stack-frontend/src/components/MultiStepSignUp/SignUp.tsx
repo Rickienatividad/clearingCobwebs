@@ -8,25 +8,27 @@ import { useState, useRef, useEffect } from "react";
 export function SignUp() {
   const formPgRef= useRef(1);
   const [showForm, setShowForm] = useState(1);
-  const [securityQuestions, setSecurityQuestions] = useState([]);
+  const [securityQuestions, setSecurityQuestions] = useState([{questionString: ""}]);
   
   const shiftFormUp = () => {
     setShowForm(showForm +1);
     formPgRef.current++;
-    console.log(formPgRef.current);
   }
 
   const shiftFormBack = () => {
     setShowForm(showForm -1);
     formPgRef.current--;
-    console.log(formPgRef.current);
   }
 
   const retrieveSecurityQuestions = () => {
+    const secQuestionArray: Array<{questionString: string}> = [];
     axios
     .get("http://localhost:8080/users/security-questions")
     .then((response) => {
-      setSecurityQuestions(response.data);
+      for(const question in response.data){
+        secQuestionArray.push({"questionString": response.data[question]});
+      };
+     setSecurityQuestions(secQuestionArray);
     })
     .catch((error) => {
       console.log(error.message)

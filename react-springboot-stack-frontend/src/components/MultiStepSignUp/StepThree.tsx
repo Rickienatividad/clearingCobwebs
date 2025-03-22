@@ -1,7 +1,12 @@
 import {useState, useRef} from "react";
+import SecQuestion from "../../interfaces/secQuestionInterface";
 import "../OldSignUpForm/Home.css";
 
-export function StepThree(props) {
+interface secQuestionProps {
+  secQuestions: SecQuestion[];
+}
+
+export function StepThree({secQuestions}: secQuestionProps) {
 
 const securityAnswerRegex: RegExp = /^[0-9a-zA-Z ]{2,}$/;
 const securityAnswerRef = useRef<HTMLInputElement | null>(null);
@@ -18,8 +23,8 @@ const validationChecker = () => {
     <div className="step-three-page">
       <div className="btn-group">
           <select name="securityQuestion" id="security-question">
-            {props.secQuestions.map((question, index) =>(
-              <option key={index}>{question}</option>
+            {secQuestions.map((question, index) =>(
+              <option key={index}>{question.questionString}</option>
             ))}
           </select>
         </div>
