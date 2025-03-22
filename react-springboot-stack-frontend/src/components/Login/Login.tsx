@@ -41,7 +41,7 @@ export function Login() {
       </form>
       <div style={{textAlign: 'right', marginTop: '1.3rem', marginRight: '-5.5rem'}}>
         <p style={{display:'inline', marginRight: '1rem'}}> Not a member?</p>
-        <NavLink to="/">Sign Up!</NavLink>
+        <NavLink to="/SignUp">Sign Up!</NavLink>
       </div>
     </div>
     </>

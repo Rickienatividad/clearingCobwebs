@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router'
 
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import { Home } from './components/HomePage/Home'
+import { Home } from './components/OldSignUpForm/Home'
+import { SignUp } from './components/MultiStepSignUp/SignUp'
 import { Login } from './components/Login/Login'
 function App() {
 
@@ -10,8 +11,9 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/Sign-Up" element={<Home/>} />
+        <Route path="/SignUp" element={<SignUp/>} />
       </Routes>
     </BrowserRouter>
     </>
