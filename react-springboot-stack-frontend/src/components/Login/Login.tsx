@@ -29,7 +29,7 @@ export function Login() {
   }
   return(
     <>
-    <h3>Login</h3>
+    <h3>Enter Credentials to Log In</h3>
     <div className="form-group">
       <form onSubmit={handleLogin}>
         <input type="text" name="email" placeholder="email" className="form-control-lg"/>
@@ -40,6 +40,9 @@ export function Login() {
         <button type="submit">Enter</button>
       </form>
       <div style={{textAlign: 'right', marginTop: '1.3rem', marginRight: '-5.5rem'}}>
+        <NavLink to="/ResetPassword">Forgot Password?</NavLink>
+      </div>
+      <div style={{textAlign: 'right', marginRight: '-5.5rem'}}>
         <p style={{display:'inline', marginRight: '1rem'}}> Not a member?</p>
         <NavLink to="/SignUp">Sign Up!</NavLink>
       </div>
