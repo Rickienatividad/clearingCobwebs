@@ -54,7 +54,7 @@ public class UserController {
     return userService.findUserByEmail(email);
   }
 
-  @GetMapping("/reset/password")
+  @PostMapping("/reset/password")
   public ResponseEntity<?> requestPasswordChange(@RequestBody PasswordResetRequestObj passwordResetRequestObj)
       throws Exception {
     return emailService.requestPasswordChange(passwordResetRequestObj);

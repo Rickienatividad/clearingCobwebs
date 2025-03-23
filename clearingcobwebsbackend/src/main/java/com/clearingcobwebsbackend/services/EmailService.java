@@ -39,12 +39,7 @@ public class EmailService {
     Optional<UserEntity> maybeUser = userRepository.findByEmail(passwordResetRequestObj.getEmail());
     if (maybeUser.isPresent()) {
       UserEntity user = maybeUser.get();
-      if (TextEncoder.match(passwordResetRequestObj.getSecurityAnswer(), user.getSecurityAnswer())) {
-        this.sendEmail(user.getEmail(), this.generateResetToken(user.getId()),
-            "Spring Boot TEST RESET");
-      } else {
-        throw new ForbiddenException("Answer to the security question was incorrect.");
-      }
+      this.sendEmail(user.getEmail(), this.generateResetToken(user.getId()), "TEST RESET PW");
     } else {
       throw new NotFoundException("User not found");
     }

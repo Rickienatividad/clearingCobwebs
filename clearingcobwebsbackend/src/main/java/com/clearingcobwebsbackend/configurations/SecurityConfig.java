@@ -47,7 +47,8 @@ public class SecurityConfig {
         .csrf(customizer -> customizer.disable())
         .cors(cors -> cors.configurationSource(request -> {
           CorsConfiguration configuration = new CorsConfiguration();
-          configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+          configuration
+              .setAllowedOrigins(Arrays.asList("http://localhost:5173"));
           configuration.setAllowedMethods(Arrays.asList("*"));
           configuration.setAllowedHeaders(Arrays.asList("*"));
           return configuration;

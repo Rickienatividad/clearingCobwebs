@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class PasswordResetRequestObj {
   private String email;
-  private String securityAnswer;
+  // private String securityAnswer;
 }
