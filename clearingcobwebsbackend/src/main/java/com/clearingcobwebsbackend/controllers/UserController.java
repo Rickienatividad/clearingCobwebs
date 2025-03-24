@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.MediaType;
 
 import com.clearingcobwebsbackend.entities.UserEntity;
+import com.clearingcobwebsbackend.requestobjects.CheckResetTokenRequestObj;
 import com.clearingcobwebsbackend.requestobjects.PasswordResetRequestObj;
 import com.clearingcobwebsbackend.requestobjects.UpdatePasswordObj;
 import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
@@ -55,7 +56,7 @@ public class UserController {
   }
 
   @PostMapping("/reset/password")
-  public ResponseEntity<?> requestPasswordChange(@RequestBody PasswordResetRequestObj passwordResetRequestObj)
+  public ResponseEntity<?> requestPasswordChange(@Valid @RequestBody PasswordResetRequestObj passwordResetRequestObj)
       throws Exception {
     return emailService.requestPasswordChange(passwordResetRequestObj);
   }
@@ -66,9 +67,15 @@ public class UserController {
   }
 
   @PostMapping("/update-password")
-  public ResponseEntity<?> updatePassword(@RequestBody UpdatePasswordObj updatePasswordObj)
+  public ResponseEntity<?> updatePassword(@Valid @RequestBody UpdatePasswordObj updatePasswordObj)
       throws Exception {
     return userService.updatePassword(updatePasswordObj);
+  }
+
+  @PostMapping("/check-token")
+  public ResponseEntity<?> checkToken(@Valid @RequestBody CheckResetTokenRequestObj checkResetTokenRequestObj)
+      throws Exception {
+    return userService.checkToken(checkResetTokenRequestObj);
   }
 
 }

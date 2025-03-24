@@ -24,7 +24,7 @@ export function Login() {
       })
       .catch((error) => {
         //console.log(error.status)
-        if(error.status == "401") {setIsLoginValid(false)}
+        if(error.status == "403") {setIsLoginValid(false)}
       })
   }
   return(
@@ -41,11 +41,11 @@ export function Login() {
       </form>
       <div style={{textAlign: 'right', marginTop: '1.3rem', marginRight: '-5.5rem'}}>
         <NavLink to="/ResetPassword">Forgot Password?</NavLink>
-      </div>
-      <div style={{textAlign: 'right', marginRight: '-5.5rem'}}>
-        <p style={{display:'inline', marginRight: '1rem'}}> Not a member?</p>
-        <NavLink to="/SignUp">Sign Up!</NavLink>
-      </div>
+      </div>  
+    </div>
+    <div style={{textAlign: 'left', marginRight: '-5.5rem', marginTop: '1.2rem'}}>
+      <p style={{display:'inline', marginRight: '1rem'}}> Not a member?</p>
+      <NavLink to="/SignUp">Sign Up!</NavLink>
     </div>
     </>
   )

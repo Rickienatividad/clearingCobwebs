@@ -21,6 +21,7 @@ import com.clearingcobwebsbackend.entities.UserEntity;
 import com.clearingcobwebsbackend.enums.SecurityQuestion;
 import com.clearingcobwebsbackend.repositories.ResetTokenRepository;
 import com.clearingcobwebsbackend.repositories.UserRepository;
+import com.clearingcobwebsbackend.requestobjects.CheckResetTokenRequestObj;
 import com.clearingcobwebsbackend.requestobjects.UpdatePasswordObj;
 import com.clearingcobwebsbackend.requestobjects.UserRequestObj;
 import com.clearingcobwebsbackend.security.TextEncoder;
@@ -108,5 +109,19 @@ public class UserService {
 
     resetTokenRepository.delete(resetToken);
     return ResponseEntity.status(200).body("Password Updated.");
+  }
+
+  public ResponseEntity<?> checkToken(CheckResetTokenRequestObj checkResetTokenRequestObj) throws Exception {
+    PasswordResetToken resetToken = resetTokenRepository.findByToken(checkResetTokenRequestObj.getResetToken())
+        .orElseThrow(() -> new NotFoundException("Token Not Valid"));
+
+    UserEntity user = userRepository.findByEmail(checkResetTokenRequestObj.getEmail()).get();
+    if (!resetToken.getUserEntity().getId().equals(user.getId())) {
+      throw new ForbiddenException("Token Not Valid. Mismatched token and user");
+    }
+    if (Instant.now().isAfter(resetToken.getExpirationDate())) {
+      throw new ForbiddenException("Token Expired");
+    }
+    return ResponseEntity.status(200).body("Token Validated");
   }
 }

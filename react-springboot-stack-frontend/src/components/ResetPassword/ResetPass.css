@@ -1,3 +1,7 @@
 #reset-email-input {
   margin-bottom: 0.2rem;
 }
+
+.not-found {
+  color: red;
+}
